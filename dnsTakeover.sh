@@ -1,11 +1,11 @@
 #!/bin/bash
 #title			:dnsTakeover.sh
-#description	:Bash script to check a domain for subdomain takeover vulnerability
+#description		:Bash script to check a domain for subdomain takeover vulnerability
 #author			:Jaroslaw Porzucek
 #date			:20190214
 #version		:1.0
 #usage			:./dnsTakeover.sh example.com
-#requirements	:Amass, MassDNS
+#requirements		:Amass, MassDNS
 #==============================================================================
 
 # Let's colour
