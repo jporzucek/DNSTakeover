@@ -3,6 +3,7 @@ import subprocess
 import dns.resolver
 import requests
 import sys
+import os
 
 # Disable 'Unverified HTTPS request' warnings
 import urllib3
@@ -147,16 +148,20 @@ print(bcolors.OKGREEN + "--- Checking {} for Subdomain Takeover ---".format(doma
 
 # Running Amass
 print(bcolors.OKBLUE + "[Running Amass...]" + bcolors.ENDC)
-subprocess.run(['amass', '-passive', '-d', domainName, '-o', 'tmp/amass.out'], stdout=subprocess.PIPE)
+subprocess.run(['amass', '-passive', '-d', domainName, '-o', 'amass.out'], stdout=subprocess.PIPE)
 
 amassResults = ''
-with open('tmp/amass.out', 'r') as f:
+with open('amass.out', 'r') as f:
     amassResults = f.read().splitlines()
+
 
 # Running MassDNS
 print(bcolors.OKBLUE + "[Running MassDNS...]" + bcolors.ENDC)
-massDnsResults = subprocess.run(['massdns', '-q', '-r', '/root/Bugbounty/_tools/massdns/lists/resolvers.txt', '-t', 'CNAME', 'tmp/amass.out', '-o', 'S'], stdout=subprocess.PIPE)
+massDnsResults = subprocess.run(['massdns', '-q', '-r', '/root/Bugbounty/_tools/massdns/lists/resolvers.txt', '-t', 'CNAME', 'amass.out', '-o', 'S'], stdout=subprocess.PIPE)
 massDnsResults = massDnsResults.stdout.decode('utf-8').split('\n')[:-1]
+
+# No longer used, remove
+os.remove('amass.out')
 
 
 massDnsDict = {}

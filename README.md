@@ -29,4 +29,4 @@ Simple but effective Python script to check a domain if it's vulnerable to subdo
 * [MassDNS](https://github.com/blechschmidt/massdns)
 
 ## Usage
-*./dnsTakeover.py <target-domain>*
+*./dnsTakeover.py target-domain*
